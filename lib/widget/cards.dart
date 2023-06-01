@@ -21,7 +21,7 @@ class CardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("${item.title} ",
-                style: TextStyle(fontSize: 33, color: Colors.white),
+                style: TextStyle(fontSize: 24, color: Colors.white),
                 textDirection: TextDirection.rtl),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,11 +31,11 @@ class CardWidget extends StatelessWidget {
                     deleteQuotes(item);
                   },
                   icon: Icon(Icons.delete),
-                  iconSize: 27,
-                  color: Color.fromARGB(255, 255, 217, 217),
+                  iconSize: 32,
+                  color: Color.fromRGBO(153,245,195, 0.8),
                 ),
                 Text("${item.auther}",
-                    style: TextStyle(fontSize: 19, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                     textDirection: TextDirection.rtl),
               ],
             ),

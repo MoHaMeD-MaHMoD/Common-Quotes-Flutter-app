@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Quotes(),
     );
   }
@@ -32,18 +33,34 @@ class BestQuotes {
 }
 
 class _QuotesState extends State<Quotes> {
+  final titleController = TextEditingController();
+  final autherController = TextEditingController();
+
   List AllQuotes = [
-    BestQuotes(title: "الهم اشتكا منينا ", auther: "beaky"),
-    BestQuotes(title: "الهم اشتكا منينا ", auther: "54"),
-    BestQuotes(title: "الهمsdf اشتكا منينا ", auther: "beasdfky"),
-    BestQuotes(title: "sdf اشتكا منينا ", auther: "beasdfky"),
-    BestQuotes(title: "الهم اشتكا منينا ", auther: "beaky"),
-    BestQuotes(title: "الهم اشتكا منينا ", auther: "54"),
-    BestQuotes(title: "الهمsdf اشتكا منينا ", auther: "beasdfky"),
-    BestQuotes(title: "sdf اشتكا منينا ", auther: "beasdfky"),
+    BestQuotes(
+        title: "لا يهم كم أنت بطيئ طالما أنك لن تتوقف", auther: "ُالبيكي"),
+    BestQuotes(title: "أنت نتاج قراراتك وليس ظروفك", auther: "ستيفن كوفي"),
+    BestQuotes(
+        title: "التاريخ ما هو إلا خرافة يتم الاتفاق عليها",
+        auther: "نابليون بونابرت"),
+    BestQuotes(title: "ما تزرعه الان فستحصده لاحقا", auther: "لولي داسكال"),
+    BestQuotes(title: "البداية هي أهمّ جزء في أيّ عمل.", auther: "أفلاطون"),
+    BestQuotes(
+        title: "عندما يكون لديك الشجاعة لمتابعة أحلامك فقد تحققها",
+        auther: "والت ديزني"),
+    BestQuotes(
+        title:
+            "من العسير على نفسي أن أتصور الجمال غير مقترن بالفضيلة، الجمال الحق والفضيلة الحقة شيئ واحد ",
+        auther: "توفيق الحكيم"),
   ];
 
-  addQuotes() {}
+  addQuotes() {
+    setState(() {
+      AllQuotes.add(BestQuotes(
+          title: titleController.text, auther: autherController.text));
+    });
+  }
+
   deleteQuotes(BestQuotes item) {
     setState(() {
       AllQuotes.remove(item);
@@ -54,8 +71,62 @@ class _QuotesState extends State<Quotes> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Color.fromRGBO(115, 0, 62, 0.8),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  padding: EdgeInsets.fromLTRB(20, 30, 20, 40),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextField(
+                          controller: titleController,
+                          maxLength: 20,
+                          decoration: InputDecoration(
+                            labelStyle: TextStyle(
+                                color: Color.fromRGBO(0, 125, 230, 0.8)),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 3,
+                                  color: Color.fromRGBO(0, 125, 230, 0.8)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Write Your Qoutes ",
+                          ),
+                        ),
+                        TextField(
+                          maxLength: 20,
+                          controller: autherController,
+                          decoration: InputDecoration(
+                            labelStyle: TextStyle(
+                                color: Color.fromRGBO(0, 125, 230, 0.8)),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 3,
+                                  color: Color.fromRGBO(0, 125, 230, 0.8)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Who Say It ?",
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              addQuotes();
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              "ADD",
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  color: Color.fromRGBO(230, 105, 0, 0.8)),
+                            ))
+                      ]),
+                );
+              },
+              isScrollControlled: true);
+        },
+        backgroundColor: Color.fromRGBO(125, 230, 0, 0.8),
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -75,39 +146,3 @@ class _QuotesState extends State<Quotes> {
     );
   }
 }
-
-
-
-/*
-Card(
-            color: Color.fromRGBO(230, 0, 125, 0.8),
-            margin: EdgeInsets.all(11),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
-            child: Container(
-              padding: EdgeInsets.all(11),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text("رايق  ",
-                      style: TextStyle(fontSize: 33, color: Colors.white),
-                      textDirection: TextDirection.rtl),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.delete),
-                        iconSize: 27,
-                        color: Color.fromARGB(255, 255, 217, 217),
-                      ),
-                      Text("ali 7assan",
-                          style: TextStyle(fontSize: 19, color: Colors.white),
-                          textDirection: TextDirection.rtl),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-*/
